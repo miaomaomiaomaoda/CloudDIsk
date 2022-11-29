@@ -1,5 +1,8 @@
 package com.example.clouddisk.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -9,9 +12,11 @@ import javax.persistence.*;
 @Data
 @Table(name="userfile",uniqueConstraints={@UniqueConstraint(name="fileindex",columnNames = {"fileName","filePath","extendName"})})
 @Entity
+@TableName("userfile")
 public class UserFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type= IdType.AUTO)
     @Column(columnDefinition = "bigint(20) comment '用户文件id'")
     private Long userFileId;
 

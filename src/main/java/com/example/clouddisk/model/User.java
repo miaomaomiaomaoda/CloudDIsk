@@ -1,5 +1,8 @@
 package com.example.clouddisk.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,12 +13,14 @@ import javax.persistence.*;
 @Data
 @Table(name="user")
 @Entity
+@TableName("user")
 public class User {
     /**
      * 主键GeneratedValue:数据库生成，自动增长
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type= IdType.AUTO)
     @Column(columnDefinition = "bigint(20) comment '用户id'")
     private Long userId;
 
