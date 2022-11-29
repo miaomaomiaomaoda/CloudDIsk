@@ -1,0 +1,9 @@
+2022-11-29 18:53:57.753  INFO 6736 --- [main] c.e.clouddisk.CloudDiskApplication       : Starting CloudDiskApplication using Java 16.0.2 on Zero-NJ with PID 6736 (F:\Coding\Java\CloudDisk\target\classes started by ZERONJ in F:\Coding\Java\CloudDisk)
+2022-11-29 18:53:57.758  INFO 6736 --- [main] c.e.clouddisk.CloudDiskApplication       : No active profile set, falling back to 1 default profile: "default"
+2022-11-29 18:53:59.408  INFO 6736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-11-29 18:53:59.427  INFO 6736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-11-29 18:53:59.428  INFO 6736 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2022-11-29 18:53:59.617  INFO 6736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-11-29 18:53:59.618  INFO 6736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1781 ms
+2022-11-29 18:54:00.078  INFO 6736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-29 18:54:00.092  INFO 6736 --- [main] c.e.clouddisk.CloudDiskApplication       : Started CloudDiskApplication in 3.021 seconds (JVM running for 4.191)
