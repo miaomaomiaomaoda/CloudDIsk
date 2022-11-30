@@ -17,7 +17,7 @@ class CloudDiskApplicationTests {
 	@Test
 	void contextLoads() {
 		User user = new User();
-		user.setUserName("用户1");
+		user.setUsername("用户1");
 		user.setPassword("密码1");
 		user.setTelephone("手机号1");
 		userMapper.insertUser(user);
@@ -29,7 +29,7 @@ class CloudDiskApplicationTests {
 	@Test
 	public void test2() {
 		User user = new User();
-		user.setUserName("用户名2");
+		user.setUsername("用户名2");
 		user.setPassword("密码2");
 		user.setTelephone("手机号2");
 		userMapper.insert(user);

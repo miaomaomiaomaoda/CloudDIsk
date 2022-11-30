@@ -6,8 +6,8 @@
 
 <mapper namespace="com.example.clouddisk.mapper.UserMapper">
     <insert id="insertUser" parameterType="com.example.clouddisk.model.User">
-        insert into user (userName, password, telephone)
-            value (#{userName}, #{password}, #{telephone})
+        insert into user (username, password, telephone)
+            value (#{username}, #{password}, #{telephone})
     </insert>
 
     <select id="selectUser" resultType="com.example.clouddisk.model.User">

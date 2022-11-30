@@ -25,7 +25,7 @@ public class User {
     private Long userId;
 
     @Column(columnDefinition = "varchar(30) comment '用户名'")
-    private String userName;
+    private String username;
 
     @Column(columnDefinition = "varchar(35) comment '密码'")
     private String password;
