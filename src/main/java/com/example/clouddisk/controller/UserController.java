@@ -1,13 +1,15 @@
 package com.example.clouddisk.controller;
 
 import com.example.clouddisk.common.RestResult;
-import com.example.clouddisk.dto.LoginVO;
+import com.example.clouddisk.vo.LoginVO;
 import com.example.clouddisk.dto.RegisterDTO;
 import com.example.clouddisk.model.User;
 import com.example.clouddisk.service.UserService;
 import com.example.clouddisk.util.JWTUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 /**
  * @author R.Q.
  */
+@Tag(name="user",description = "该接口为用户接口,主要用作用户登录、注册和校验token")
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -64,6 +67,7 @@ public class UserController {
      * @param registerDTO 接口请求参数
      * @return
      */
+    @Operation(summary = "用户注册",description = "注册账号",tags = {"user"})
     @PostMapping(value = "/register")
     @ResponseBody
     public RestResult<String> register(@RequestBody RegisterDTO registerDTO){
@@ -83,15 +87,16 @@ public class UserController {
      * @param password
      * @return
      */
+    @Operation(summary = "用户登录",description = "用户登录认证后才能进入系统",tags = {"user"})
     @GetMapping(value = "/login")
     @ResponseBody
     public RestResult<LoginVO> userLogin(String telephone,String password){
-        RestResult<LoginVO> restResult = new RestResult<>();
         LoginVO loginVO = new LoginVO();
         User user = new User();
         user.setTelephone(telephone);
         user.setPassword(password);
         RestResult<User> loginResult = userService.login(user);
+
         if(!loginResult.getSuccess()){
             return RestResult.fail().message("登录失败!");
         }
@@ -102,6 +107,7 @@ public class UserController {
             ObjectMapper objectMapper = new ObjectMapper();
             jwt = jwtUtil.createJWT(objectMapper.writeValueAsString(loginResult.getData()));
         }catch(Exception e){
+            e.printStackTrace();
             return RestResult.fail().message("登录失败!");
         }
         loginVO.setToken(jwt);
@@ -114,6 +120,7 @@ public class UserController {
      * @param token
      * @return
      */
+    @Operation(summary = "检查用户登录信息",description = "验证token有效性",tags = {"user"})
     @GetMapping(value="/checkuserlogininfo")
     @ResponseBody
     public RestResult<User> checkToken(@RequestHeader("token") String token){

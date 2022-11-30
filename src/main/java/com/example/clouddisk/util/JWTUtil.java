@@ -46,8 +46,8 @@ public class JWTUtil {
         Date date = new Date(currentTime);
         // 生成签名的时候使用的秘钥secret，切记这个秘钥不能外露，是你服务端的私钥，在任何场景都不应该流露出去，一旦客户端得知这个secret，那就意味着客户端是可以自我签发jwt的
         SecretKey key = generalKey();
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine se = manager.getEngineByName("js");
+        ScriptEngineManager manager = new ScriptEngineManager(null);
+        ScriptEngine se = manager.getEngineByName("javascript");
         int expireTime = 0;
         try{
             expireTime = (int) se.eval(jwtProperties.getPayload().getRegisterdClaims().getExp());
