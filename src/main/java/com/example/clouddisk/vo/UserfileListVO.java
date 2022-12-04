@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author R.Q.
- * brief:作为文件列表查询接口给前台返回的信息载体
+ * brief:作为文件列表查询接口给前台返回的信息载体,也就后端返回前端的
  */
 @Data
 @Schema(description = "用户文件列表VO")

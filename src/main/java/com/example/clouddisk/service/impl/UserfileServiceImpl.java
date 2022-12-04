@@ -28,6 +28,14 @@ public class UserfileServiceImpl extends ServiceImpl<UserfileMapper, UserFile> i
         return userfileMapper.userfileList(userFile, beginCount, pageCount);
     }
 
+    /**
+     * function:用于文件分类展示时获取文件
+     * @param fileType 文件类型(见常量类)
+     * @param currentPage 当前页
+     * @param pageCount 一页显示数量
+     * @param userId 用户id
+     * @return 查询到的文件
+     */
     @Override
     public Map<String, Object> getUserFileByType(int fileType, Long currentPage, Long pageCount, Long userId) {
         Long beginCount = (currentPage-1)*pageCount;

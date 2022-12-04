@@ -86,7 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
      */
     @Override
     public User getUserByToken(String token) {
-        User tokenUserInfo = null;
+        User tokenUserInfo;
         try{
             Claims claims = jwtUtil.parseJWT(token);
             String subject = claims.getSubject();
