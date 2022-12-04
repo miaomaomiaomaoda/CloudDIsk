@@ -36,15 +36,15 @@ public class JWTUtil {
 
     /**
      * function:创建jwt
-     * @param subject
-     * @return
-     * @throws Exception
+     * @param subject JWT主题
+     * @return 生成的JWT
+     * @throws Exception 异常
      */
     public String createJWT(String subject) throws Exception{
         //生成JWT的时间
         long currentTime = System.currentTimeMillis();
         Date date = new Date(currentTime);
-        // 生成签名的时候使用的秘钥secret，切记这个秘钥不能外露，是你服务端的私钥，在任何场景都不应该流露出去，一旦客户端得知这个secret，那就意味着客户端是可以自我签发jwt的
+        //生成签名的时候使用的秘钥secret，切记这个秘钥不能外露，是你服务端的私钥，在任何场景都不应该流露出去，一旦客户端得知这个secret，那就意味着客户端是可以自我签发jwt的
         SecretKey key = generalKey();
         ScriptEngineManager manager = new ScriptEngineManager(null);
         ScriptEngine se = manager.getEngineByName("javascript");
@@ -64,16 +64,16 @@ public class JWTUtil {
         //new一个JwtBuilder，设置jwt的body
         JwtBuilder builder = Jwts.builder()
                 .setClaims(defaultClaims)
-                .setIssuedAt(date) // iat(issuedAt)：jwt的签发时间
+                .setIssuedAt(date)
                 .signWith(SignatureAlgorithm.forName(jwtProperties.getHeader().getAlg()),key); //设置签名，使用的是签名算法和签名使用的秘钥
         return builder.compact();
     }
 
     /**
      * function:解密jwt
-     * @param jwt
-     * @return
-     * @throws Exception
+     * @param jwt JWT
+     * @return JWT解析结果
+     * @throws Exception 异常
      */
     public Claims parseJWT(String jwt) throws Exception{
         //签名秘钥，和生成的签名的秘钥一模一样

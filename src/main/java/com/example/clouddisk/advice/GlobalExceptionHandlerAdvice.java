@@ -3,8 +3,6 @@ package com.example.clouddisk.advice;
 import com.example.clouddisk.common.RestResult;
 import com.example.clouddisk.common.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.jboss.jandex.Index;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,5 +53,4 @@ public class GlobalExceptionHandlerAdvice {
         log.error("全局异常捕获:"+e);
         return RestResult.setResult(ResultCodeEnum.INDEX_OUT_OF_BOUNDS);
     }
-
 }

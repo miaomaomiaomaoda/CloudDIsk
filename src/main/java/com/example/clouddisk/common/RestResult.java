@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author R.Q.
- * brief:统一结果返回类
+ * brief:统一结果返回类,封装结果统一返回
  * @param<T>
  */
 @Data
@@ -14,7 +14,10 @@ public class RestResult<T> {
     private String message;
     private T data;
 
-    //通用返回成功
+    /**
+     * function:通用返回成功
+     * @return 成功返回
+     */
     public static RestResult success(){
         RestResult r = new RestResult();
         r.setSuccess(ResultCodeEnum.SUCCESS.getSuccess());
@@ -23,7 +26,10 @@ public class RestResult<T> {
         return r;
     }
 
-    //通用返回失败,未知错误
+    /**
+     * function:通用返回失败,未知错误
+     * @return 失败返回
+     */
     public static RestResult fail(){
         RestResult r = new RestResult();
         r.setSuccess(ResultCodeEnum.UNKNOWN_ERROR.getSuccess());
@@ -61,6 +67,11 @@ public class RestResult<T> {
         return this;
     }
 
+    /**
+     * function:使用返回结果枚举设置返回
+     * @param result 返回结果枚举类
+     * @return 返回结果
+     */
     public static RestResult setResult(ResultCodeEnum result){
         RestResult r = new RestResult();
         r.setSuccess(result.getSuccess());

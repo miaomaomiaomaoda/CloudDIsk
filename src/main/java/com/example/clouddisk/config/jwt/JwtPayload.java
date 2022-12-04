@@ -4,9 +4,12 @@ import lombok.Data;
 
 /**
  * @author R.Q.
- * brief:JWT的载荷
+ * brief:JWT的载荷,用来存放实际需要传递的数据
  */
 @Data
 public class JwtPayload {
-    private RegisterdClaims registerdClaims;      //实体
+    /**
+     * 关于实体(通常为用户)和其他数据
+     */
+    private RegisterdClaims registerdClaims;
 }

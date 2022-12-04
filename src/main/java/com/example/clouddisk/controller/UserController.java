@@ -65,13 +65,13 @@ public class UserController {
     /**
      * function:用户注册
      * @param registerDTO 接口请求参数
-     * @return
+     * @return 注册返回结果
      */
     @Operation(summary = "用户注册",description = "注册账号",tags = {"user"})
     @PostMapping(value = "/register")
     @ResponseBody
     public RestResult<String> register(@RequestBody RegisterDTO registerDTO){
-        RestResult<String> restResult = null;
+        RestResult<String> restResult;
         User user = new User();
         user.setUsername(registerDTO.getUsername());
         user.setTelephone(registerDTO.getTelephone());
@@ -83,9 +83,9 @@ public class UserController {
 
     /**
      * function:用户登录
-     * @param telephone
-     * @param password
-     * @return
+     * @param telephone 手机号
+     * @param password 密码
+     * @return 登录返回结果
      */
     @Operation(summary = "用户登录",description = "用户登录认证后才能进入系统",tags = {"user"})
     @GetMapping(value = "/login")
@@ -102,7 +102,7 @@ public class UserController {
         }
 
         loginVO.setUsername(loginResult.getData().getUsername());
-        String jwt = "";
+        String jwt;
         try{
             ObjectMapper objectMapper = new ObjectMapper();
             jwt = jwtUtil.createJWT(objectMapper.writeValueAsString(loginResult.getData()));
@@ -117,15 +117,14 @@ public class UserController {
     /**
      * brief:token校验接口
      * function:如果 token 不正确，或者 token 过期，就会导致解码失败，返回认证失败，如果能够正确解析，那么就会返回成功。
-     * @param token
-     * @return
+     * @param token token
+     * @return 校验结果
      */
     @Operation(summary = "检查用户登录信息",description = "验证token有效性",tags = {"user"})
     @GetMapping(value="/checkuserlogininfo")
     @ResponseBody
     public RestResult<User> checkToken(@RequestHeader("token") String token){
-        RestResult<User> restResult = new RestResult<>();
-        User tokenUserInfo = null;
+        User tokenUserInfo;
         try{
             Claims claims = jwtUtil.parseJWT(token);
             String subject = claims.getSubject();

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author R.Q.
- * brief:JWT 配置类
+ * brief:完整的JWT配置类,将各部分组合起来
  */
 @Data
 @Component

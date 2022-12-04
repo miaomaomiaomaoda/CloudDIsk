@@ -11,4 +11,6 @@ public interface UserService {
 
     RestResult<User> login(User user);
 
+    User getUserByToken(String token);
+
 }

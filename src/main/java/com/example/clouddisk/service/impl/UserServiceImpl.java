@@ -7,6 +7,9 @@ import com.example.clouddisk.mapper.UserMapper;
 import com.example.clouddisk.model.User;
 import com.example.clouddisk.service.UserService;
 import com.example.clouddisk.util.DateUtil;
+import com.example.clouddisk.util.JWTUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -24,6 +27,9 @@ import java.util.UUID;
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
     @Resource
     UserMapper userMapper;
+
+    @Resource
+    JWTUtil jwtUtil;
 
     @Override
     public RestResult<String> registerUser(User user){
@@ -71,6 +77,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         }else{
             return RestResult.fail().message("手机号或密码错误！");
         }
+    }
+
+    /**
+     * function:通过 token 获取到用户信息，可以用来校验 token
+     * @param token token
+     * @return 用户信息
+     */
+    @Override
+    public User getUserByToken(String token) {
+        User tokenUserInfo = null;
+        try{
+            Claims claims = jwtUtil.parseJWT(token);
+            String subject = claims.getSubject();
+            ObjectMapper objectMapper = new ObjectMapper();
+            tokenUserInfo = objectMapper.readValue(subject,User.class);
+        }catch (Exception e){
+            log.error("解码异常");
+            return null;
+        }
+        return tokenUserInfo;
     }
 
     private boolean isTelePhoneExit(String telePhone){
