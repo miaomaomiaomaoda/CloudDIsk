@@ -1,11 +1,17 @@
 package com.example.clouddisk.operation.upload;
 
 import com.example.clouddisk.operation.upload.domain.UploadFile;
+import com.example.clouddisk.util.FileUtil;
 import com.example.clouddisk.util.PathUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -49,4 +55,45 @@ public abstract class Uploader {
         return path;
     }
 
+    public synchronized boolean checkUploadStatus(UploadFile param,File confFile) throws IOException{
+        RandomAccessFile confAccessFile = new RandomAccessFile(confFile,"rw");
+        //设置文件长度
+        confAccessFile.setLength(param.getTotalChunks());
+        //设置初始偏移量
+        confAccessFile.seek(param.getChunkNumber()-1);
+        //将指定的一个字节写入文件中127，
+        confAccessFile.write(Byte.MAX_VALUE);
+        byte[] completeStatusList = FileUtils.readFileToByteArray(confFile);
+        confAccessFile.close();
+        //创建conf文件，文件长度为总分片数，每上传一个分块就向conf文件中写入一个127，那么没上传的位置就是默认的0，已上传的就是127
+        for (int i = 0; i < completeStatusList.length; i++) {
+            if(completeStatusList[i]!=Byte.MAX_VALUE){
+                return false;
+            }
+        }
+        confFile.delete();
+        return true;
+    }
+
+    /**
+     * function:根据原始文件名生成新文件名
+     * @return 新文件名
+     */
+    protected String getTimeStampName() {
+        SecureRandom number = null;
+        try {
+            number = SecureRandom.getInstance("SHA1PRNG");
+            return "" + number.nextInt(10000) + System.currentTimeMillis();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("生成安全随机数失败");
+        }
+        return "" + System.currentTimeMillis();
+    }
+
+    protected String getFileName(String fileName){
+        if(!fileName.contains(".")){
+            return fileName;
+        }
+        return fileName.substring(0,fileName.lastIndexOf("."));
+    }
 }
