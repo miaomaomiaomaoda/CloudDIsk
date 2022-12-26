@@ -6,6 +6,6 @@ package com.example.clouddisk.exception;
  */
 public class NotSameFileExpection extends Exception{
     public NotSameFileExpection(){
-        super("File MD5 Different");
+        super("MD5 Check Exception");
     }
 }
