@@ -55,6 +55,7 @@ public class FileController {
         userFile.setFilePath(createFileDTO.getFilePath());
         userFile.setIsDir(1);
         userFile.setUploadTime(DateUtil.getCurrentTime());
+        userFile.setDeleteFlag(0);
         userfileService.save(userFile);
         return RestResult.success();
     }
