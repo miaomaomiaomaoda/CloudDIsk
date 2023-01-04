@@ -41,13 +41,13 @@ public class UserFile {
     @Column(columnDefinition="varchar(25) comment '上传时间'")
     private String uploadTime;
 
-    @Column(columnDefinition = "int(11) comment '删除标志 0-未删除 1-已删除")
+    @Column(columnDefinition = "int(11) comment '删除标志 0-未删除 1-已删除'")
     private Integer deleteFlag;
 
-    @Column(columnDefinition = "varchar(25) comment '删除时间")
+    @Column(columnDefinition = "varchar(25) comment '删除时间'")
     private String deleteTime;
 
-    @Column(columnDefinition = "varchr(50) comment '删除批次号")
+    @Column(columnDefinition = "varchr(50) comment '删除批次号'")
     private String deleteBatchNum;
 
 }

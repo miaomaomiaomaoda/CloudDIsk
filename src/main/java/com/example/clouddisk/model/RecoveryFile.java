@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 /**
  * @author R.Q.
- * brief:恢复文件用
+ * brief:删除文件记录表
  */
 @Data
 @Table(name="recoveryfile")
@@ -23,7 +23,7 @@ public class RecoveryFile {
     private Long recoveryFileId;
 
     @Column(columnDefinition = "bigint(20)")
-    private Long userFileI;
+    private Long userFileId;
 
     @Column(columnDefinition = "varchar(25)")
     private String deleteTime;
